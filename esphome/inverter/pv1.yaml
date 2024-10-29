@@ -1,0 +1,66 @@
+sensor:sensor:
+###
+# PV 1
+###   
+  - platform: modbus_controller
+    name: "${device_name} DcVoltage (pv1)"
+    id: gw_pv1_DcVoltage
+    address: 3
+    register_type: read
+    unit_of_measurement: V
+    device_class: voltage
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} DcInputCurrent (pv1)"
+    id: gw_pv1_DcInputCurrent
+    icon: mdi:current-dc
+    address: 4
+    register_type: read
+    unit_of_measurement: A
+    device_class: current
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} DcPower (pv1)"
+    id: gw_pv1_DcPower
+    icon: mdi:solar-power-variant
+    address: 5
+    register_type: read
+    unit_of_measurement: W
+    device_class: power
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} EnergyTotal (pv1)"
+    id: gw_pv1_EnergyTotal
+    icon: mdi:solar-power-variant
+    address: 3053
+    register_type: read
+    unit_of_measurement: kWh
+    state_class: total_increasing
+    device_class: energy
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} EnergyTotal Today (pv1)"
+    id: gw_pv1_EnergyTotalToday
+    icon: mdi:solar-power-variant
+    address: 3055
+    register_type: read
+    unit_of_measurement: kWh
+    state_class: total_increasing
+    device_class: energy
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1

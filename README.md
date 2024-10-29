@@ -1,2 +1,3 @@
 # esphome-growatt
-Setting up a growatt inverter into esphome trough modbus
+
+This repo will help you manage your Growatt inverter trough modbus.

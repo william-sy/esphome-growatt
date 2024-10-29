@@ -1,0 +1,180 @@
+sensor:
+###
+# Inverter
+###
+  - platform: modbus_controller
+    modbus_controller_id: zp
+    name: "${device_name} Status"
+    id: status
+    icon: mdi:list-status
+    address: 0
+    register_type: read
+    accuracy_decimals: 0
+  - platform: modbus_controller
+    name: "${device_name} PvInputPower High (Total)"
+    id: gw_PvInputPower_high
+    icon: mdi:import
+    address: 1
+    register_type: read
+    unit_of_measurement: W
+    device_class: power
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} OutputPower (Total)"
+    id: gw_OutputPower_high
+    icon: mdi:import
+    address: 1
+    register_type: read
+    unit_of_measurement: W
+    device_class: power
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} Grid AcFrequency"
+    id: gw_AcFrequency
+    icon: mdi:sine-wave
+    address: 37
+    register_type: read
+    unit_of_measurement: Hz
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+    - multiply: 0.01
+  - platform: modbus_controller
+    name: "${device_name} Grid AcVoltage"
+    id: gw_AcVoltage
+    address: 38
+    register_type: read
+    unit_of_measurement: V
+    device_class: voltage
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} AcOutputCurrent"
+    id: gw_AcOutputCurrent
+    icon: mdi:current-ac
+    address: 39
+    register_type: read
+    unit_of_measurement: A
+    device_class: current
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1  
+  - platform: modbus_controller
+    name: "${device_name} AcOutputWatt"
+    id: gw_AcOutputWatt
+    address: 40
+    register_type: read
+    unit_of_measurement: W
+    device_class: power
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} EnergyToday"
+    id: gw_EnergyToday
+    icon: mdi:transmission-tower-export
+    address: 53
+    register_type: read
+    unit_of_measurement: kWh
+    device_class: energy
+
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} EnergyTotal"
+    address: 55
+    icon: mdi:transmission-tower-export
+    register_type: "read"
+    unit_of_measurement: kWh
+    state_class: total_increasing
+    device_class: energy
+
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} Temperature"
+    id: gw_Temperature
+    address: 3093
+    register_type: read
+    unit_of_measurement: °C
+    device_class: temperature
+    icon: mdi:thermometer
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} Fault code"
+    id: gw_FaultCode
+    icon: mdi:list-status
+    address: 3105
+    register_type: read
+    value_type: U_WORD
+  - platform: modbus_controller
+    name: "${device_name} Warning code"
+    id: gw_WarningCode
+    icon: mdi:list-status
+    address: 3106
+    register_type: read
+    value_type: U_WORD
+  - platform: modbus_controller
+    name: "${device_name} Total Power"
+    id: gw_AcPower
+    address: 3001
+    register_type: read
+    unit_of_measurement: W
+    device_class: power
+    icon: mdi:flash
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  
+number:
+  - platform: modbus_controller
+    name: "${device_name} Max output power"
+    id: gw_MaxOutputPower
+    address: 3
+    value_type: U_WORD
+    min_value: 0
+    max_value: 100
+    entity_category: config
+
+text_sensor:
+  - platform: modbus_controller
+    name: "${device_name} Firmware Version"
+    id: gw_FirmwareVersion
+    address: 9
+    register_count: 3
+    register_type: holding
+    #internal: true
+    entity_category: diagnostic
+  - platform: template
+    name: "${device_name} Status"
+    icon: mdi:eye
+    entity_category: diagnostic
+    lambda: |-
+      if (id(status).state == 1) {
+        return {"Normal"};
+      } else if (id(status).state == 0)  {
+        return {"Waiting"};
+      } else {
+        return {"Fault!"};
+      }
+    internal: false

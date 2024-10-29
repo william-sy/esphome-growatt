@@ -1,0 +1,18 @@
+###
+# ESP settings
+###
+esp32:
+  board: m5stack-atom
+  framework:
+    type: esp-idf
+###
+# Uart Settings
+###
+uart:
+  id:          uart_modbus_zp
+  tx_pin:      19
+  rx_pin:      22
+  baud_rate:   9600
+  data_bits:   8
+  debug:
+    direction: BOTH
