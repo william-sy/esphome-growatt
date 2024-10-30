@@ -38,19 +38,6 @@ sensor:sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
-  - platform: modbus_controller
-    name: "${device_name} EnergyTotal (pv1)"
-    id: gw_pv1_EnergyTotal
-    icon: mdi:solar-power-variant
-    address: 3053
-    register_type: read
-    unit_of_measurement: kWh
-    state_class: total_increasing
-    device_class: energy
-    value_type: U_DWORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.1
   # Not sure what the difference is with register 59, they seem the same:
   # 59 - PV1Energy today(high) - 0.1kWh
   # 3055 - PV1 energy today - 0.01kWh
@@ -59,6 +46,19 @@ sensor:sensor:
     id: gw_pv1_EnergyTotalToday
     icon: mdi:solar-power-variant
     address: 3055
+    register_type: read
+    unit_of_measurement: kWh
+    state_class: total_increasing
+    device_class: energy
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.1
+  - platform: modbus_controller
+    name: "${device_name} EnergyTotal (pv1)"
+    id: gw_pv1_EnergyTotal
+    icon: mdi:solar-power-variant
+    address: 3057
     register_type: read
     unit_of_measurement: kWh
     state_class: total_increasing
