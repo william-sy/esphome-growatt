@@ -51,6 +51,9 @@ sensor:sensor:
     accuracy_decimals: 1
     filters:
     - multiply: 0.1
+  # Not sure what the difference is with register 59, they seem the same:
+  # 59 - PV1Energy today(high) - 0.1kWh
+  # 3055 - PV1 energy today - 0.01kWh
   - platform: modbus_controller
     name: "${device_name} EnergyTotal Today (pv1)"
     id: gw_pv1_EnergyTotalToday

@@ -1,0 +1,3 @@
+# This file is for inverters with 3 phase output. 
+# Note: Register 38,39,40,41 are shared with single phase. 
+# These are already done.

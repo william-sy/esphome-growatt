@@ -1,0 +1,50 @@
+# Only use this if you know what you are doing. 
+# If you use this and it breaks you inverter it is tough luck!
+# 
+# 
+# USE AT OWN RISK!
+
+# This file holds the 'holding' registers (0 to 3124) 
+# These can reset your inverter but also programm a new serial number.
+
+# Set the LCD language:
+number:
+  # This is handy to get your hand on the right manual :)
+  - platform: modbus_controller
+    name: "${device_name} LCD Language (set)"
+    id: gw_LCDLanguage
+    icon: mdi:information
+    register_type: holding
+    address: 15
+    min_value: 0
+    max_value: 8
+    step: 1
+
+text_sensor:
+  - platform: template
+    name: "${device_name} LCD Language (read)"
+    icon: mdi:eye
+    entity_category: diagnostic
+    lambda: |-
+      if (id(gw_LCDLanguage).state == 0) {
+        return {"Italian"};
+      } else if (id(gw_LCDLanguage).state == 1)  {
+        return {"English"};
+      } else if (id(gw_LCDLanguage).state == 2)  {
+        return {"German"};
+      } else if (id(gw_LCDLanguage).state == 3)  {
+        return {"Spanish"};
+      } else if (id(gw_LCDLanguage).state == 4)  {
+        return {"French"};
+      } else if (id(gw_LCDLanguage).state == 5)  {
+        return {"Chinese"};
+      } else if (id(gw_LCDLanguage).state == 6)  {
+        return {"Polish"};
+      } else if (id(gw_LCDLanguage).state == 7)  {
+        return {"Portugues"};
+      } else if (id(gw_LCDLanguage).state == 8)  {
+        return {"Hungarian"};
+      } else {
+        return {"Language no known!"};
+      }
+    internal: false

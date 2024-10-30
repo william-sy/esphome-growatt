@@ -3,10 +3,8 @@ esphome:
   friendly_name: ZP-RS485
   comment: Growatt MIN 3600 LT X
 
-
 substitutions:
   device_name: Growatt
-
 
 # Enable logging
 logger:
@@ -46,9 +44,13 @@ packages:
     files: [
       esphome/base/base.yaml,
       esphome/base/board-esp32-atom-light.yaml,
-      esphome/i18n/EN.yaml,
+      #esphome/i18n/EN.yaml,
       #esphome/i18n/NL.yaml,
       esphome/inverter/inverter.yaml,
+      # Read the file first!!!!!!!
+      # This can do permanent dmage to the inverter
+      #esphome/inverter/danger.yaml,
+      #esphome/inverter/info.yaml,
       esphome/inverter/pv1.yaml,
       esphome/inverter/pv2.yaml
     ]
